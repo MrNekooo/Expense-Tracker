@@ -10,8 +10,8 @@ const Main = () => {
 
     // useEffect for title Page
     useEffect(() => {
-        document.title = "Expense Tracker"
-    })
+        document.title = `Total Prices: $${expenses.reduce((acc, curr) => acc + curr.amount, 0)}`
+    }, [amount])
 
     // Get Values
     function handleDescriptionProduct(e){

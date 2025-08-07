@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Main = () => {
 
@@ -7,6 +7,11 @@ const Main = () => {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState();
     const [category, setCategory] = useState("");
+
+    // useEffect for title Page
+    useEffect(() => {
+        document.title = "Expense Tracker"
+    })
 
     // Get Values
     function handleDescriptionProduct(e){

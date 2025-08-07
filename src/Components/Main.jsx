@@ -54,14 +54,14 @@ const Main = () => {
             hasError = true;
         }
 
+
+
         if(hasError){
+
             setErrors(newErrors);
-            return
-        }
+            return;
 
-
-
-        if(!hasError){
+        } else {
             const newExpense = {
                 description: String(description),
                 amount: Number(amount),

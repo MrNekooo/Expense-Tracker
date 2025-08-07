@@ -28,7 +28,7 @@ const Main = () => {
     function addProduct(){
         if(description !== "" && amount !== "" && category !== ""){
             const newExpense = {
-                description,
+                description: String(description),
                 amount: Number(amount),
                 category
             }
@@ -117,6 +117,9 @@ const Main = () => {
                 </li>
             ))}
         </ul>
+        <p className="font-semibold text-2xl mt-10 text-center"> 
+            Total Prices : {`$${expenses.reduce((acc, curr) => acc + curr.amount, 0)}`} 
+        </p>
     </div>
   )
 }

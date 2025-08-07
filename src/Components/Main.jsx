@@ -96,7 +96,7 @@ const Main = () => {
                         className="px-4 py-1 outline-none max-lg:w-xl max-sm:w-full"
                         onChange={handleDescriptionProduct} />
                 {errors.description && 
-                <p className="text-red-500 text-sm">{errors.description}</p>}
+                <p className="text-red-500 text-sm ">{errors.description}</p>}
             </>
 
             <>

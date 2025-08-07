@@ -7,11 +7,19 @@ const Main = () => {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState();
     const [category, setCategory] = useState("");
+    // Form Validation
+    const [errors, setErrors] = useState({
+        description: "",
+        amount: "",
+        category: ""
+    })
 
     // useEffect for title Page
     useEffect(() => {
-        document.title = `Total Prices: $${expenses.reduce((acc, curr) => acc + curr.amount, 0)}`
-    }, [amount])
+        const total = expenses.reduce((acc, curr) => acc + curr.amount, 0)
+        document.title = `Total Prices: $${total}`
+    // This effect will run whenever the 'expenses' changes, updating the document title
+    }, [expenses])
 
     // Get Values
     function handleDescriptionProduct(e){
@@ -26,7 +34,34 @@ const Main = () => {
 
     // Add Product
     function addProduct(){
-        if(description !== "" && amount !== "" && category !== ""){
+
+        let hasError = false;
+        const newErrors = {description: "", amount: "", category: ""}
+
+        // Validation
+        if(description.trim() === ""){
+            newErrors.description = "*Description is REQUIRED*";
+            hasError = true;
+        }
+
+        if(!amount || isNaN(amount) || amount <= 0){
+            newErrors.amount = "*Amount has to be a POSITIVE NUMBER*";
+            hasError = true;
+        }
+
+        if(category === "" || category === "Select a Category"){
+            newErrors.category = "*Category is REQUIRED*";
+            hasError = true;
+        }
+
+        if(hasError){
+            setErrors(newErrors);
+            return
+        }
+
+
+
+        if(!hasError){
             const newExpense = {
                 description: String(description),
                 amount: Number(amount),
@@ -38,6 +73,7 @@ const Main = () => {
             setDescription("")
             setAmount("")
             setCategory("")
+            setErrors({description: "", amount: "", category: ""})
         }
     }
 
@@ -59,6 +95,8 @@ const Main = () => {
                         placeholder="e.g. Tomato"
                         className="px-4 py-1 outline-none max-lg:w-xl max-sm:w-full"
                         onChange={handleDescriptionProduct} />
+                {errors.description && 
+                <p className="text-red-500 text-sm">{errors.description}</p>}
             </>
 
             <>
@@ -68,6 +106,8 @@ const Main = () => {
                         placeholder="e.g. 10"
                         className="px-4 py-1 outline-none max-lg:w-xl max-sm:w-full"
                         onChange={handleAmountProduct} />
+                {errors.amount &&
+                <p className="text-red-500 text-sm">{errors.amount}</p>}
             </>
 
             <>
@@ -88,6 +128,8 @@ const Main = () => {
 
                     <option value="Electronics">Electronics</option>
                 </select>
+                {errors.category &&
+                <p className="text-red-500 text-sm">{errors.category}</p>}
             </>
         </div>
         <div className="flex items-center justify-center mb-20 mt-10">
